@@ -2,19 +2,19 @@ package main;
 
 import java.util.ArrayList;
 
-import model.Paczka;
-import model.Przedmiot;
+import model.Parcel;
+import model.Item;
 import util.DAO;
 
 public class Application {
 
 	public static void main(String[] args) throws Exception {
 		DAO dao = DAO.getInstance();
-		Paczka paczka = dao.readPaczka();
-		ArrayList<Przedmiot> przedmioty = dao.readPrzedmioty();
+		dao.readParcel();
+		ArrayList<Item> fullItemList = dao.readItems();
 		
-		System.out.println(paczka);
-		System.out.println(przedmioty.get(1));
+		System.out.println(new Parcel());
+		System.out.println(fullItemList.get(1));
 	}
 
 }

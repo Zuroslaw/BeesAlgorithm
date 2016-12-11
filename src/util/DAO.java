@@ -1,7 +1,7 @@
 package util;
 
-import model.Przedmiot;
-import model.Paczka;
+import model.Item;
+import model.Parcel;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,7 +21,7 @@ public class DAO {
 	
 	private DAO() {	}
 	
-	public Paczka readPaczka() throws Exception {
+	public void readParcel() throws Exception {
 		
 		BufferedReader br = null;
 		String filePath = new File("").getAbsolutePath();
@@ -33,21 +33,22 @@ public class DAO {
 			br = new BufferedReader(new FileReader(filePath.concat("\\input.txt")));
 
 			sCurrentLine = br.readLine();
-			return new Paczka(Double.parseDouble(sCurrentLine.split(" ")[0]));
+
+			Parcel.setMaxWeight((Double.parseDouble(sCurrentLine.split(" ")[0])));
 			
 		} finally {
 			if (br != null)br.close();
 		}
 	}
 	
-	public ArrayList<Przedmiot> readPrzedmioty() throws Exception {
+	public ArrayList<Item> readItems() throws Exception {
 		
 		BufferedReader br = null;
 		String filePath = new File("").getAbsolutePath();
 
 		try {
 			
-			ArrayList<Przedmiot> result = new ArrayList<>();
+			ArrayList<Item> result = new ArrayList<>();
 			
 			String sCurrentLine;
 
@@ -63,11 +64,11 @@ public class DAO {
 				
 				String[] item = lines.get(i).split(" ");
 				
-				String nazwa = item[0];
-				double waga = Double.parseDouble(item[1]);
-				double cena = Double.parseDouble(item[2]);
+				String name = item[0];
+				double weight = Double.parseDouble(item[1]);
+				double price = Double.parseDouble(item[2]);
 				
-				result.add(new Przedmiot(nazwa, waga, cena));
+				result.add(new Item(name, weight, price));
 			}
 			
 			return result;
