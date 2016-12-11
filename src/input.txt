@@ -1,0 +1,6 @@
+40 5
+jeden 23.50 12.50
+dwa 12 55.30
+trzy 4 8
+cztery 98 9
+piec 2 2
