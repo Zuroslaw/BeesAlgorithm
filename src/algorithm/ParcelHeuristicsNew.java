@@ -1,8 +1,6 @@
 package algorithm;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
+import java.util.*;
 
 import model.Item;
 import model.Parcel;
@@ -20,13 +18,32 @@ public class ParcelHeuristicsNew implements ParcelHeuristics {
 		Collections.shuffle(shuffleList);
 		Parcel parcel = new Parcel();
 
+        /*Set<Integer> set = new HashSet<Integer>(shuffleList);
+        assert (set.size() == shuffleList.size());*/
+        //System.out.println();
 		for ( int x : shuffleList) {
+		    //System.out.println(fullItemList.get(x).getName());
 			if ( !parcel.addItem(fullItemList.get(x)) )		//lece po liscie i dodaje przedmioty z listy liczb randomowo ustawionych
 				break;
 		}
 
 		return parcel;
 	
+	}
+
+	public ArrayList<Parcel> generateMultipleRandomParcels(ArrayList<Item> fullItemList, int numOfParcels) {
+
+		ArrayList<Parcel> result = new ArrayList<>();
+
+		outer : while (result.size() != numOfParcels) {
+		    Parcel newParcel = generateRandomParcel(fullItemList);
+		    for (Parcel par : result) {
+		        if (newParcel.equals(par)) continue outer;
+            }
+            result.add(newParcel);
+        }
+        System.out.println("LOG: genMultRanPar size of result - " + result.size());
+        return result;
 	}
 
 	public ArrayList<Parcel> generateRandomNeighbours(ArrayList<Item> fullItemList, Parcel parcel, int numOfParcels){

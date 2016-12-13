@@ -6,12 +6,18 @@ import model.Parcel;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class DAO {
 	
 	private static DAO instance;
-	
+
+	/**
+	 * Returns a DAO singleton
+	 *
+	 * @return instance of DAO
+	 */
 	public static DAO getInstance() {
 		if (instance == null) {
 			instance = new DAO();
@@ -20,8 +26,14 @@ public class DAO {
 	}
 	
 	private DAO() {	}
-	
-	public void readParcel() throws Exception {
+
+	/**
+	 * Reads parcel parameters from file. The file must be in 'src' folder.
+	 * The method modifies static field MAX_WEIGHT of class Parcel.
+	 *
+	 * @throws IOException if something wrong happened during file read.
+	 */
+	public void readParcel() throws IOException {
 		
 		BufferedReader br = null;
 		String filePath = new File("").getAbsolutePath();
@@ -40,8 +52,15 @@ public class DAO {
 			if (br != null)br.close();
 		}
 	}
-	
-	public ArrayList<Item> readItems() throws Exception {
+
+    /**
+     * Reads item list from file. The file must be in 'src' folder.
+     *
+     * @return an ArrayList of Items with parameters specified in file.
+     *
+     * @throws IOException if something wrong happened during file read.
+     */
+	public ArrayList<Item> readItems() throws IOException {
 		
 		BufferedReader br = null;
 		String filePath = new File("").getAbsolutePath();

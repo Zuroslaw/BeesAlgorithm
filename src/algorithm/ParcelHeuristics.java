@@ -7,6 +7,7 @@ import model.Parcel;
 
 public interface ParcelHeuristics {
 	Parcel generateRandomParcel (ArrayList<Item> fullItemList);
+	ArrayList<Parcel> generateMultipleRandomParcels(ArrayList<Item> fullItemList, int numOfParcels);
 	ArrayList<Parcel> generateRandomNeighbours(ArrayList<Item> fullItemList, Parcel parcel, int numOfParcels);
 
 

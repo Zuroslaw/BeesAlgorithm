@@ -9,12 +9,12 @@ banana 27 -60
 apple 39 -40
 cheese 23 -30
 beer 52 -10
-suntan cream 11 -70
+cream 11 -70
 camera 32 -30
 T-shirt 24 -15
 trousers 48 -10
 umbrella 73 -40
-trousers 42 -70
+trousers2 42 -70
 overclothes 43 -75
 note-case 22 -80
 sunglasses 7 -20
