@@ -58,7 +58,7 @@ public class Parcel {
      */
 	public List<Item> getItemList() {
 		return itemList;
-	}
+	}  //dokladam static
 
     /**
      * Replaces current items with new list of items.
@@ -109,8 +109,20 @@ public class Parcel {
      * @return true if the item has been removed, false if there was no such item in the parcel.
      */
 	public boolean removeItem(Item item) {
-
+        currentWeight=-item.getWeight();     //17.12
+        currentQuality=-item.getPrice();      //17.12
         return itemList.remove(item);
+    }
+
+    /**
+     * Removes the item from the parcel if it is in there.
+     *
+     * @return void
+     */
+    public void removeItems() {              //17.122
+        currentWeight=0;
+        currentQuality=0;
+        itemList.clear();
     }
 
     /**
@@ -134,7 +146,7 @@ public class Parcel {
 		for (int i = 0; i < parcel.itemList.size(); i++) {
 			boolean matches = false;
 			for (int j = 0; j < parcel.itemList.size(); j++) {
-				if (parcel.itemList.get(j).equals(itemList.get(i)));
+				if(parcel.itemList.get(j).equals(itemList.get(i)));
 					matches = true;
 			}
 			if (!matches) return false;
