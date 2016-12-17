@@ -90,7 +90,8 @@ public class Parcel {
 	 * @return true if the item has been added, false if there is no space to fit it.
 	 */
 	public boolean addItem(Item item) {
-		//System.out.println(item);
+		//
+		// System.out.println(item);
 	    if (itemList.contains(item)) throw new ItemAlreadyInParcelException();
 
 		if (currentWeight + item.getWeight() > MAX_WEIGHT) return false;
