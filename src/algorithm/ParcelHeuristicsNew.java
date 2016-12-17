@@ -60,7 +60,6 @@ public class ParcelHeuristicsNew implements ParcelHeuristics {
             System.out.println(temp.getItemList().get(m));
         }
         */
-
         parcel.removeItems();             //czyszcze plecak i od nowa wstawiam przedmioty pukladane,
        // System.out.println(parcel);
         //for(int h=0 ; h<ItemsPrices.size() ; h++)
