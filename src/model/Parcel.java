@@ -98,7 +98,7 @@ public class Parcel {
 		
 		itemList.add(item);
 		currentWeight += item.getWeight();
-		currentQuality += item.getPrice();
+		currentQuality +=  ((-2)*item.getWeight()) + item.getPrice();  // koszt wysylki 2zl per kilo
 		return true;
 	}
     /**

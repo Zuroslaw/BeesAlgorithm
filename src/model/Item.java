@@ -6,13 +6,25 @@ public class Item {
 	
 	private String name;
 	private double weight;
-	private double price;
+    private double price;
+
+
+    public void setQuality(double quality) {
+        this.quality = quality;
+    }
+
+    public double getQuality() {
+        return quality;
+    }
+
+    private double quality;
 	
 	public Item(String name, double weight, double price)
 	{
 		this.name = name;
 		this.weight = weight;
 		this.price = price;
+		this.quality = price + ((-2)*weight);
 	}
 
 	public String getName() {

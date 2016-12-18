@@ -9,10 +9,11 @@ public class ParcelHeuristicsNew implements ParcelHeuristics {
 
 
     public Parcel generateRandomParcel(ArrayList<Item> fullItemList) {
+        double ItemQuality = 0;
         int j = 0;  //17.12
         ArrayList<Double> tab = new ArrayList<>();
         Parcel temp = new Parcel();    //17.12
-        ArrayList<Double> ItemsPrices = new ArrayList<>();
+        ArrayList<Double> ItemsQuality = new ArrayList<>();
         ArrayList<Integer> shuffleList = new ArrayList<>();
         for (int i = 0; i < fullItemList.size(); i++) {
             shuffleList.add(i);   // robie liste liczb,ktore potem spermutuje
@@ -29,13 +30,14 @@ public class ParcelHeuristicsNew implements ParcelHeuristics {
             //System.out.println(fullItemList.get(x).getName());
             if (!parcel.addItem(fullItemList.get(x)))        //lece po liscie i dodaje przedmioty z listy liczb randomowo ustawionych
                 break;
-
-            ItemsPrices.add(parcel.getItemList().get(j).getPrice()); // lista wartosci przedmiotow,tutaj wykorzystuje 'j'
+            ItemQuality = (parcel.getItemList().get(j).getPrice()); //narazie na cenie bo na jakosci nie dziala, nie wiem czemu :)
+            //System.out.println(ItemQuality);
+            ItemsQuality.add(ItemQuality); // lista jakosci przedmiotow,tutaj wykorzystuje 'j'
            j++;
         }
 
-        Collections.sort(ItemsPrices);
-        Collections.reverse(ItemsPrices);    // od najtanszej do najdrozszej rzeczy
+        Collections.sort(ItemsQuality);
+        Collections.reverse(ItemsQuality);    // od najlepszego do najgorszego pod wzgledem funkcji jakosci rzeczy
 
        /* for (int m = 0; m < ItemsPrices.size(); m++) {
             System.out.print("N");
@@ -43,9 +45,9 @@ public class ParcelHeuristicsNew implements ParcelHeuristics {
         }
         */
 
-        for(int k=0 ; k<ItemsPrices.size() ; k++)   // ukladam itemy w kolejnosci ceny od najtanszej(np, 10,10,10,15,30) i tworze temp
+        for(int k=0 ; k<ItemsQuality.size() ; k++)   // ukladam itemy w kolejnosci ceny od najtanszej(np, 10,10,10,15,30) i tworze temp
         {
-            double s = ItemsPrices.get(k);  // sprawdzam czy tej ceny juz nie sprawdzalem na liscie, bo nie chce 3 razy tych samych rzeczy po 10 zeta wrzucac
+            double s = ItemsQuality.get(k);  // sprawdzam czy tej ceny juz nie sprawdzalem na liscie, bo nie chce 3 razy tych samych rzeczy po 10 zeta wrzucac
             if (!tab.contains(s)) {
                 tab.add(s);
                 for (Item x : parcel.getItemList()) {  // wrzucam wszystkie rzeczy o danej cenie
