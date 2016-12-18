@@ -19,7 +19,7 @@ public class Application {
 		System.out.println(fullItemList.get(1));
 
 		System.out.println("ALGO:\n");
-		BeesAlgorithmImpl algo = new BeesAlgorithmImpl(new Parcel(), fullItemList, 7, 10 , 5, new ParcelHeuristicsNew());
+		BeesAlgorithmImpl algo = new BeesAlgorithmImpl(new Parcel(), fullItemList, 100, 10 , 100, new ParcelHeuristicsNew());
 		Parcel result = algo.run();
 
 		System.out.println(result);
