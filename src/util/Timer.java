@@ -45,7 +45,7 @@ public class Timer {
     private static void displayToc(TimerData timerValue) {
         double currentTimeMilis = System.currentTimeMillis();
         double ticTimeMilis = timerValue.time;
-        double seconds = 1000*(currentTimeMilis - ticTimeMilis);
+        double seconds = (currentTimeMilis - ticTimeMilis)/1000;
         System.out.println(""+ (timerValue.ticName == null ? "":(timerValue.ticName + "-> ")) +  "### Timer: Time of measurement with id: " + timerValue.id + " -> " + seconds);
     }
 }

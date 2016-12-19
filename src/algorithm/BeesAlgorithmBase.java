@@ -33,7 +33,5 @@ public abstract class BeesAlgorithmBase {
 
 	public abstract Parcel run();
 	
-	public abstract void findRandomSolutions();
-	
 	public abstract boolean shouldStop();
 }

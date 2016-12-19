@@ -4,6 +4,7 @@ import Exceptions.ItemAlreadyInParcelException;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 public class Parcel {
@@ -141,7 +142,12 @@ public class Parcel {
 
 		Parcel parcel = (Parcel) o;
 
-		if (parcel.itemList.size() != itemList.size()) return false;
+		if (parcel.hashCode() != hashCode()) return false;      //dziala troche szybciej
+
+        HashSet<Item> hs = new HashSet<>(parcel.getItemList());
+        HashSet<Item> hs2 = new HashSet<>(getItemList());
+        return hs.equals(hs2);
+		/*if (parcel.itemList.size() != itemList.size()) return false;
 
 		for (int i = 0; i < parcel.itemList.size(); i++) {
 			boolean matches = false;
@@ -150,9 +156,9 @@ public class Parcel {
 					matches = true;
 			}
 			if (!matches) return false;
-		}
+		}*/
 
-		return true;
+		//return true;
 	}
 
 	@Override

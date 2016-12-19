@@ -29,7 +29,7 @@ public class ParcelHeuristicsNew implements ParcelHeuristics {
 
             //System.out.println(fullItemList.get(x).getName());
             if (!parcel.addItem(fullItemList.get(x)))        //lece po liscie i dodaje przedmioty z listy liczb randomowo ustawionych
-                break;
+                continue;
             ItemQuality = (parcel.getItemList().get(j).getPrice()); //narazie na cenie bo na jakosci nie dziala, nie wiem czemu :)
             //System.out.println(ItemQuality);
             ItemsQuality.add(ItemQuality); // lista jakosci przedmiotow,tutaj wykorzystuje 'j'
@@ -72,9 +72,7 @@ public class ParcelHeuristicsNew implements ParcelHeuristics {
         //System.out.println("generateRandomParcel" + parcel );
 
 		return parcel;
-}
-
-
+    }
 
 
 	public ArrayList<Parcel> generateMultipleRandomParcels(ArrayList<Item> fullItemList, int numOfParcels) {
@@ -84,24 +82,25 @@ public class ParcelHeuristicsNew implements ParcelHeuristics {
 		outer : while (result.size() != numOfParcels) {
 		    Parcel newParcel = generateRandomParcel(fullItemList);
 		    for (Parcel par : result) {
-		        if (newParcel.equals(par)) continue outer;
+		        if (newParcel.equals(par)) {
+		            continue outer;
+                }
             }
             result.add(newParcel);
         }
-        System.out.println("LOG: genMultRanPar size of result - " + result.size());
         return result;
 	}
 
 	public ArrayList<Parcel> generateRandomNeighbours(ArrayList<Item> fullItemList, Parcel parcel, int numOfParcels){
 		ArrayList<Parcel> parcels = new ArrayList<>(); // lista paczek do returna
-		int parcelListlength = parcel.getItemList().size();
+		int parcelListLength = parcel.getItemList().size();
 			
-		for(int j=0; j < numOfParcels ;  j++){  // ile s�siedztw szukam
+		outer : for(int j=0; j < numOfParcels ;  j++){  // ile s�siedztw szukam
 
 			Parcel newParcel = new Parcel(); // paczki kt�re trafi� do listy paczek do zwrotu, "s�siednie"
 			
 			for(int i=0; i<3; i++) { // 3 przedmioty zostawiam, reszte zmieniam
-				Item itemToPut = parcel.getItemList().get(new Random().nextInt(parcelListlength));
+				Item itemToPut = parcel.getItemList().get(new Random().nextInt(parcelListLength));
 				if (newParcel.hasItem(itemToPut)) {
 					--i;
 					continue;
@@ -117,10 +116,15 @@ public class ParcelHeuristicsNew implements ParcelHeuristics {
 			for ( int x : shuffleList) {
 				Item itemToPut = fullItemList.get(x);
 				if (newParcel.hasItem(itemToPut)) continue;
-				if ( !newParcel.addItem(fullItemList.get(x)) )		//lece po liscie i dodaje przedmioty z listy liczb randomowo ustawionych
-					break;
+				newParcel.addItem(fullItemList.get(x));		//lece po liscie i dodaje przedmioty z listy liczb randomowo ustawionych
 			}
 
+            for (Parcel p : parcels) {          //SPRAWDZANIE CZY PACZKI SIE NIE DUBLUJA - SZLOBY JAKOS SPRYTNIEJ
+			    if (p.equals(newParcel)) {      //TO ZROBIC BO WYDLUZA ITERACJE OSTRO
+			        j--;
+			        continue outer;
+                }
+            }
 			parcels.add(newParcel);
 		}
 		return parcels;   // zwracam liste
