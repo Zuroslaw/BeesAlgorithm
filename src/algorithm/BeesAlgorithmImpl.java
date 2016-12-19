@@ -63,7 +63,7 @@ public class BeesAlgorithmImpl extends BeesAlgorithmBase {
             int place = 0;		///zainicjalizowane na 0
             for(int i = 0 ; i < numOfScouts ; i++){
 
-                if(currentSources.get(i).getCurrentQuality() > max)
+                if(currentSources.get(i).getCurrentQuality() < max)
                 {
                     //max = currentSources.get(i).getcurrentQuality();
                     place = i;
