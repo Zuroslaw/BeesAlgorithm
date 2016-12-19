@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
-public class Parcel {
+public class Parcel implements Comparable<Parcel> {
 	
 	private static double MAX_WEIGHT;
 	private double currentWeight = 0;
@@ -166,6 +166,10 @@ public class Parcel {
 		return itemList != null ? itemList.hashCode() : 0;
 	}
 
+	@Override
+	public int compareTo(Parcel o) {
+		return (int) (currentQuality - o.getCurrentQuality());
+	}
 }
 
 //min f(x) = x1.cena +x2.cena+ x3.cena + x4.cena ...../

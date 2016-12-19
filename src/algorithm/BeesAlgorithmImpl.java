@@ -26,63 +26,36 @@ public class BeesAlgorithmImpl extends BeesAlgorithmBase {
     public Parcel run(){
 
          int currentIter;
+         currentSources = ph.generateMultipleRandomParcels(fullItemList, numOfScouts);  //paczki beda rozne
          for(currentIter = 0 ; currentIter < maxIter ; currentIter++ )
          {
              System.out.println(currentIter+1);
-             currentSources = ph.generateMultipleRandomParcels(fullItemList, numOfScouts);  //paczki beda rozne
 
-             currentSources.sort((p1, p2) -> (int) (p1.getCurrentQuality() - p2.getCurrentQuality()));
-
+             Collections.sort(currentSources);
              currentSources.set(0, sendBees(currentSources.get(0), 50));
-             currentSources.set(0, sendBees(currentSources.get(1), 30));
-             currentSources.set(0, sendBees(currentSources.get(2), 20));
-             currentSources.set(0, sendBees(currentSources.get(3), 10));
+             currentSources.set(1, sendBees(currentSources.get(1), 30));
+             currentSources.set(2, sendBees(currentSources.get(2), 20));
+             currentSources.set(3, sendBees(currentSources.get(3), 10));
+             currentSources.set(4, sendBees(currentSources.get(4), 5));
+             currentSources.set(5, sendBees(currentSources.get(5), 5));
+             currentSources.set(6, sendBees(currentSources.get(6), 5));
+             currentSources.set(7, sendBees(currentSources.get(7), 5));
+             currentSources.set(8, sendBees(currentSources.get(8), 5));
+             currentSources.set(9, sendBees(currentSources.get(9), 5));
 
-             currentSources.sort((p1, p2) -> (int) (p1.getCurrentQuality() - p2.getCurrentQuality()));      //TO DO SPRAWDZANIA TYLKO
+             Collections.sort(currentSources);
+
+             for (int i = 5; i < 10; i++) {
+                 currentSources.set(i, ph.generateRandomParcel(fullItemList));
+             }
+             Collections.sort(currentSources);
              currentSources.forEach(parcel -> System.out.print("" + parcel.getCurrentQuality() + " "));     //TO TEZ
              System.out.println();  //I TO TEZZZZZZ
 
-             neighbours.clear();
-            // 5 pszcz�, tyle razy szukam s�siad�w lepszych od paczki
-             neighbours.addAll(ph.generateMultipleRandomParcels(fullItemList, 5));// lista s�siad�w dla 5 randomowych pszcz� kt�re zab��dzi�y
-             for(int g=0; g<5 ; g++)
-             {
-                 for(int h = 0 ; h<10 ; h++ )
-                     {
-                         if(currentSources.get(h).getCurrentQuality()<neighbours.get(g).getCurrentQuality() )
-                         {
-                             //System.out.println("przed zamiana na sasiada "+ (h+1)  +" "+   currentSources.get(h));
-                             currentSources.set(h,neighbours.get(g) ); // sprawdzam czy s�siad jest lepszy od kazdej paczki na liscie
-                             //System.out.println("Lepszy sasiad " + (h+1) + " paczki w random: " + currentSources.get(h));
-                             break ; //wychodze z petli, nie chce podmieniac wszystkich gorszych paczek, tylko 1 napotkana
-                         }
-                     }
-            }
-
-            double max = currentSources.get(0).getCurrentQuality();
-            int place = 0;		///zainicjalizowane na 0
-            for(int i = 0 ; i < numOfScouts ; i++){
-
-                if(currentSources.get(i).getCurrentQuality() < max)
-                {
-                    //max = currentSources.get(i).getcurrentQuality();
-                    place = i;
-                }
-            }
-
-            BestForIter.add(currentSources.get(place));//lista rozwiazan, dla wszyskich iteracji, dla kazdej po 1 paczce najlepszej. get(0) to 1 iteracja
-            currentSources.clear();
-            neighbours.clear();
          }
 
-        Parcel result = BestForIter.get(0);
-
-        for (Parcel p : BestForIter) {
-             if (p.getCurrentQuality() > result.getCurrentQuality())
-                 result = p;
-        }
-
-        return result;
+         Collections.sort(currentSources);
+         return currentSources.get(0);
 
     }
 
@@ -94,13 +67,12 @@ public class BeesAlgorithmImpl extends BeesAlgorithmBase {
          *          Z tym przekazywaniem chyba moze byc czytelniej. Do sprawdzenia potem co jest wydajniejsze.
          */
         ArrayList<Parcel> neighbours = new ArrayList<>(ph.generateRandomNeighbours(fullItemList,source, numOfBeesToSend));
-        for(int n=0; n < numOfBeesToSend ; n++){
 
-            if (neighbours.get(n).getCurrentQuality() < source.getCurrentQuality())
-                return neighbours.get(n);
-        }
-        return source;
+        Parcel best = neighbours.stream().max(Parcel::compareTo).get();
+
+        return best.compareTo(source) < 0 ? best : source;
 	}
+
 
 	@Override
 	public boolean shouldStop() {
