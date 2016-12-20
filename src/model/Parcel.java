@@ -91,15 +91,14 @@ public class Parcel implements Comparable<Parcel> {
 	 * @return true if the item has been added, false if there is no space to fit it.
 	 */
 	public boolean addItem(Item item) {
-		//
-		// System.out.println(item);
+
 	    if (itemList.contains(item)) throw new ItemAlreadyInParcelException();
 
 		if (currentWeight + item.getWeight() > MAX_WEIGHT) return false;
 		
 		itemList.add(item);
 		currentWeight += item.getWeight();
-		currentQuality +=  ((-2)*item.getWeight()) + item.getPrice();  // koszt wysylki 2zl per kilo
+		currentQuality += item.getPrice();  // koszt wysylki 2zl per kilo
 		return true;
 	}
     /**
@@ -110,9 +109,12 @@ public class Parcel implements Comparable<Parcel> {
      * @return true if the item has been removed, false if there was no such item in the parcel.
      */
 	public boolean removeItem(Item item) {
-        currentWeight=-item.getWeight();     //17.12
-        currentQuality=-item.getPrice();      //17.12
-        return itemList.remove(item);
+	    if (itemList.remove(item)) {
+            currentWeight -= item.getWeight();
+            currentQuality -= item.getPrice();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -147,18 +149,6 @@ public class Parcel implements Comparable<Parcel> {
         HashSet<Item> hs = new HashSet<>(parcel.getItemList());
         HashSet<Item> hs2 = new HashSet<>(getItemList());
         return hs.equals(hs2);
-		/*if (parcel.itemList.size() != itemList.size()) return false;
-
-		for (int i = 0; i < parcel.itemList.size(); i++) {
-			boolean matches = false;
-			for (int j = 0; j < parcel.itemList.size(); j++) {
-				if(parcel.itemList.get(j).equals(itemList.get(i)));
-					matches = true;
-			}
-			if (!matches) return false;
-		}*/
-
-		//return true;
 	}
 
 	@Override
@@ -170,6 +160,10 @@ public class Parcel implements Comparable<Parcel> {
 	public int compareTo(Parcel o) {
 		return (int) (currentQuality - o.getCurrentQuality());
 	}
+
+	public int reversedCompareTo(Parcel o) {
+        return (int) (o.getCurrentQuality() - currentQuality);
+    }
 }
 
 //min f(x) = x1.cena +x2.cena+ x3.cena + x4.cena ...../

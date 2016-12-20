@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class DAO {
 	
 	private static DAO instance;
+	private static String filename = "input.txt";
 
 	/**
 	 * Returns a DAO singleton
@@ -23,6 +24,10 @@ public class DAO {
 			instance = new DAO();
 		}
 		return instance;
+	}
+
+	public static void setFileName(String filename_) {
+		filename = filename_;
 	}
 	
 	private DAO() {	}
@@ -42,7 +47,7 @@ public class DAO {
 
 			String sCurrentLine;
 
-			br = new BufferedReader(new FileReader(filePath.concat("\\input.txt")));
+			br = new BufferedReader(new FileReader(filePath.concat("\\" + filename)));
 
 			sCurrentLine = br.readLine();
 
@@ -71,7 +76,7 @@ public class DAO {
 			
 			String sCurrentLine;
 
-			br = new BufferedReader(new FileReader(filePath.concat("\\input.txt")));
+			br = new BufferedReader(new FileReader(filePath.concat("\\" + filename)));
 
 			ArrayList<String> lines = new ArrayList<>();
 			

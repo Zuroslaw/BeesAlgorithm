@@ -1,60 +1,49 @@
 package algorithm;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.stream.Collectors;
 
+import Exceptions.MoreDumpedSourcesThanScoutsException;
 import model.Parcel;
 import model.Item;
 
 public class BeesAlgorithmImpl extends BeesAlgorithmBase {
 
-    private int numOfBees;
-    private ArrayList<Parcel> currentSources = new ArrayList<>();
-    private ArrayList<Parcel> BestForIter= new ArrayList<>();//lista najlepszych wynikow na iteracje
-    private ArrayList<Parcel> neighbours= new ArrayList<>();
+	public BeesAlgorithmImpl(Parcel parcel, ArrayList<Item> fullItemList, int maxIter, int[] beesDistribution, int sourcesToDump, ParcelHeuristics ph) {
 
-	public BeesAlgorithmImpl(Parcel parcel, ArrayList<Item> fullItemList, int maxIter, int numOfScouts , int numOfBees, ParcelHeuristics ph) {
-
-		super(parcel, fullItemList, ph, maxIter, numOfScouts);
-		this.numOfBees = numOfBees;
+		super(parcel, fullItemList, ph, maxIter, beesDistribution, sourcesToDump);
 	}
 
 
-// zakladam 10 skaut�w i 100 pszcz�, 50 na 1 , 30 na 2, 10 na 3, 4 na 4 i po 1 na reszte �r�del(paczek)
     public Parcel run(){
 
+         if (sourcesToDump > beesDistribution.length) throw new MoreDumpedSourcesThanScoutsException();
+
          int currentIter;
-         currentSources = ph.generateMultipleRandomParcels(fullItemList, numOfScouts);  //paczki beda rozne
+         int numOfScouts = beesDistribution.length;
+         ArrayList<Parcel> currentSources = ph.generateMultipleRandomParcels(fullItemList, numOfScouts);  //paczki beda rozne
+
          for(currentIter = 0 ; currentIter < maxIter ; currentIter++ )
          {
-             System.out.println(currentIter+1);
+             System.out.println("" + (currentIter+1) + ": ");
 
-             Collections.sort(currentSources);
-             currentSources.set(0, sendBees(currentSources.get(0), 50));
-             currentSources.set(1, sendBees(currentSources.get(1), 30));
-             currentSources.set(2, sendBees(currentSources.get(2), 20));
-             currentSources.set(3, sendBees(currentSources.get(3), 10));
-             currentSources.set(4, sendBees(currentSources.get(4), 5));
-             currentSources.set(5, sendBees(currentSources.get(5), 5));
-             currentSources.set(6, sendBees(currentSources.get(6), 5));
-             currentSources.set(7, sendBees(currentSources.get(7), 5));
-             currentSources.set(8, sendBees(currentSources.get(8), 5));
-             currentSources.set(9, sendBees(currentSources.get(9), 5));
+             currentSources.sort(Parcel::reversedCompareTo);
 
-             Collections.sort(currentSources);
+             for (int i = 0; i < numOfScouts; ++i) {
+                 currentSources.set(i, sendBees(currentSources.get(i), beesDistribution[i]));
+             }
 
-             for (int i = 5; i < 10; i++) {
+             currentSources.sort(Parcel::compareTo);
+
+             for (int i = 0; i < sourcesToDump; i++) {
                  currentSources.set(i, ph.generateRandomParcel(fullItemList));
              }
-             Collections.sort(currentSources);
+             currentSources.sort(Parcel::reversedCompareTo);
              currentSources.forEach(parcel -> System.out.print("" + parcel.getCurrentQuality() + " "));     //TO TEZ
              System.out.println();  //I TO TEZZZZZZ
 
          }
 
-         Collections.sort(currentSources);
+         currentSources.sort(Parcel::reversedCompareTo);
          return currentSources.get(0);
 
     }
@@ -67,10 +56,8 @@ public class BeesAlgorithmImpl extends BeesAlgorithmBase {
          *          Z tym przekazywaniem chyba moze byc czytelniej. Do sprawdzenia potem co jest wydajniejsze.
          */
         ArrayList<Parcel> neighbours = new ArrayList<>(ph.generateRandomNeighbours(fullItemList,source, numOfBeesToSend));
-
         Parcel best = neighbours.stream().max(Parcel::compareTo).get();
-
-        return best.compareTo(source) < 0 ? best : source;
+        return best.compareTo(source) > 0 ? best : source;
 	}
 
 

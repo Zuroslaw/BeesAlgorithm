@@ -7,24 +7,12 @@ public class Item {
 	private String name;
 	private double weight;
     private double price;
-
-
-    public void setQuality(double quality) {
-        this.quality = quality;
-    }
-
-    public double getQuality() {
-        return quality;
-    }
-
-    private double quality;
 	
 	public Item(String name, double weight, double price)
 	{
 		this.name = name;
 		this.weight = weight;
 		this.price = price;
-		this.quality = price + ((-2)*weight);
 	}
 
 	public String getName() {
@@ -57,7 +45,7 @@ public class Item {
 		if (obj == this) return true;
 
 		Item castedObject = (Item) obj;
-		return (castedObject.name.equals(name));
+		return (castedObject.name.equals(name) && castedObject.getWeight() == weight && castedObject.getPrice() == price);
 	}
 
     @Override

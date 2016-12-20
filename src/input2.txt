@@ -1,0 +1,13 @@
+400 22
+map 65 8
+compass 299 54
+water 45 25
+sandwich 136 88
+glucose 14 41
+tin 112 78
+banana 6 2
+apple 1023 655
+cheese 88 25
+beer 52 10
+suntan cream 11 70
+camera 32 30

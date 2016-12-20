@@ -7,28 +7,21 @@ import model.Item;
 
 public abstract class BeesAlgorithmBase {
 
-	@SuppressWarnings("unused")
 	protected ParcelHeuristics ph;
-	@SuppressWarnings("unused")
 	protected Parcel originalParcel;
-	@SuppressWarnings("unused")
 	protected ArrayList<Item> fullItemList;
 	
 	int maxIter;
-	int currentIter;
-	int numOfScouts;
-	int numOfSources;
-	
-	ArrayList<Parcel> currentSources;
+	int[] beesDistribution;
+	int sourcesToDump;
 
-	public BeesAlgorithmBase() {};
-
-	public BeesAlgorithmBase(Parcel parcel, ArrayList<Item> fullItemList, ParcelHeuristics ph, int maxIter, int numOfScouts) {
+	public BeesAlgorithmBase(Parcel parcel, ArrayList<Item> fullItemList, ParcelHeuristics ph, int maxIter, int[] beesDistribution, int sourcesToDump) {
 		this.originalParcel = parcel;
 		this.fullItemList = fullItemList;
 		this.ph = ph;
 		this.maxIter = maxIter;
-		this.numOfScouts = numOfScouts;
+		this.beesDistribution = beesDistribution;
+		this.sourcesToDump = sourcesToDump;
 	}
 
 	public abstract Parcel run();
