@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class Item {
 	
-	private String name;
-	private double weight;
-    private double price;
+	protected String name;
+	protected double weight;
+    protected double price;
 	
 	public Item(String name, double weight, double price)
 	{
@@ -57,5 +57,6 @@ public class Item {
 	public String toString() {
 		return "Item [name=" + name + ", weight=" + weight + ", price=" + price + " ]";
 	}
-	
+
+
 }

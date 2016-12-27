@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import algorithm.*;
 import model.Parcel;
 import model.Item;
+import model.Parcel_Extended;
+import model.Item_Extended;
 import util.DAO;
 import util.Timer;
 
@@ -21,10 +23,10 @@ public class Application {
 
 		int[] beesDistribution = {70, 50, 30, 20, 15, 10, 8, 7, 6, 5, 4, 3, 2};
 		System.out.println("ALGO:\n");
-		BeesAlgorithmBase algo1 = new BeesAlgorithmImpl(new Parcel(), fullItemList, 10000, beesDistribution, 8, new ParcelHeuristicsNew());
-		BeesAlgorithmBase algo2 = new BeesAlgorithmRandomDump(new Parcel(), fullItemList, 10000, beesDistribution, 8, 3, new ParcelHeuristicsNew());
-        BeesAlgorithmBase algo3 = new BeesAlgorithmImpl(new Parcel(), fullItemList, 500, beesDistribution, 5, new ParcelHeuristicsRandomReplacement());
-        BeesAlgorithmBase algo4 = new BeesAlgorithmRandomDump(new Parcel(), fullItemList, 500, beesDistribution, 5, 3, new ParcelHeuristicsRandomReplacement());
+		BeesAlgorithmBase algo1 = new BeesAlgorithmImpl(new Parcel_Extended(), fullItemList, 10000, beesDistribution, 8, new ParcelHeuristicsNew());
+		BeesAlgorithmBase algo2 = new BeesAlgorithmRandomDump(new Parcel_Extended(), fullItemList, 10000, beesDistribution, 8, 3, new ParcelHeuristicsNew());
+        BeesAlgorithmBase algo3 = new BeesAlgorithmImpl(new Parcel_Extended(), fullItemList, 500, beesDistribution, 5, new ParcelHeuristicsRandomReplacement());
+        BeesAlgorithmBase algo4 = new BeesAlgorithmRandomDump(new Parcel_Extended(), fullItemList, 500, beesDistribution, 5, 3, new ParcelHeuristicsRandomReplacement());
 
         Timer.tic("Impl");
         Parcel p1 = algo3.run();

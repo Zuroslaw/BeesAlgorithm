@@ -1,7 +1,9 @@
 package util;
 
 import model.Item;
+import model.Item_Extended;
 import model.Parcel;
+import model.Parcel_Extended;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -51,7 +53,7 @@ public class DAO {
 
 			sCurrentLine = br.readLine();
 
-			Parcel.setMaxWeight((Double.parseDouble(sCurrentLine.split(" ")[0])));
+			Parcel_Extended.setMaxWeight((Double.parseDouble(sCurrentLine.split(" ")[0])));
 			
 		} finally {
 			if (br != null)br.close();
@@ -92,7 +94,7 @@ public class DAO {
 				double weight = Double.parseDouble(item[1]);
 				double price = Double.parseDouble(item[2]);
 				
-				result.add(new Item(name, weight, price));
+				result.add(new Item_Extended(name, weight, price));
 			}
 			
 			return result;

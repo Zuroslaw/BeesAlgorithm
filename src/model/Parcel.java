@@ -9,11 +9,11 @@ import java.util.List;
 
 public class Parcel implements Comparable<Parcel> {
 	
-	private static double MAX_WEIGHT;
-	private double currentWeight = 0;
-	private double currentQuality = 0;
+	protected  static double MAX_WEIGHT;
+	protected double currentWeight = 0;
+	protected double currentQuality = 0;
 
-	private List<Item> itemList;
+	protected List<Item> itemList;
 
 	/**
 	 * Constructs a Parcel object with empty list of items.
@@ -40,6 +40,9 @@ public class Parcel implements Comparable<Parcel> {
 	    MAX_WEIGHT = maxWeight;
     }
 
+
+
+    public static double getMaxWeight(){ return MAX_WEIGHT; }
     /**
      * @return weight of all items in parcel.
      */

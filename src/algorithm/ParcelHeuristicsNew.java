@@ -34,11 +34,6 @@ public class ParcelHeuristicsNew implements ParcelHeuristics {
         Collections.sort(ItemsQuality);
         Collections.reverse(ItemsQuality);    // od najlepszego do najgorszego pod wzgledem funkcji jakosci rzeczy
 
-       /* for (int m = 0; m < ItemsPrices.size(); m++) {
-            System.out.print("N");
-            System.out.println(ItemsPrices.get(m));
-        }
-        */
 
         for(int k=0 ; k<ItemsQuality.size() ; k++)   // ukladam itemy w kolejnosci ceny od najtanszej(np, 10,10,10,15,30) i tworze temp
         {
@@ -52,19 +47,15 @@ public class ParcelHeuristicsNew implements ParcelHeuristics {
                 }
             }
         }
-       /* for(int m = 0; m <ItemsPrices.size();m++ ) {
-            System.out.print("I");
-            System.out.println(temp.getItemList().get(m));
-        }
-        */
+
         parcel.removeItems();             //czyszcze plecak i od nowa wstawiam przedmioty pukladane,
-       // System.out.println(parcel);
+
 
         for(Item h : temp.getItemList())
         {
             parcel.addItem(h);
         }
-        //System.out.println("generateRandomParcel" + parcel );
+
 
 		return parcel;
     }
