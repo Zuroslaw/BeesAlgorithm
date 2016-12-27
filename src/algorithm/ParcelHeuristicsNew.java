@@ -4,60 +4,31 @@ import java.util.*;
 
 import model.Item;
 import model.Parcel;
-
+import model.Item_Extended;
+import model.Parcel_Extended;
 public class ParcelHeuristicsNew implements ParcelHeuristics {
 
 
     public Parcel generateRandomParcel(ArrayList<Item> fullItemList) {
-        double ItemQuality = 0;
-        int j = 0;  //17.12
-        ArrayList<Double> tab = new ArrayList<>();
-        Parcel temp = new Parcel();    //17.12
+
+
+        Parcel newParcel = new Parcel();    //17.12
         ArrayList<Double> ItemsQuality = new ArrayList<>();
         ArrayList<Integer> shuffleList = new ArrayList<>();
-        for (int i = 0; i < fullItemList.size(); i++) {
+
+        for (int i=0; i<fullItemList.size(); i++) {
             shuffleList.add(i);   // robie liste liczb,ktore potem spermutuje
         }
 
         Collections.shuffle(shuffleList);
-        Parcel parcel = new Parcel();
 
-        for (int x : shuffleList) {
-
-            if (!parcel.addItem(fullItemList.get(x)))        //lece po liscie i dodaje przedmioty z listy liczb randomowo ustawionych
-                continue;
-            ItemQuality = (parcel.getItemList().get(j).getPrice());
-            ItemsQuality.add(ItemQuality);
-           j++;
+        for ( int x : shuffleList) {
+            Item itemToPut = fullItemList.get(x);
+            if (newParcel.hasItem(itemToPut)) continue;
+            newParcel.addItem(fullItemList.get(x));		//lece po liscie i dodaje przedmioty z listy liczb randomowo ustawionych
         }
 
-        Collections.sort(ItemsQuality);
-        Collections.reverse(ItemsQuality);    // od najlepszego do najgorszego pod wzgledem funkcji jakosci rzeczy
-
-
-        for(int k=0 ; k<ItemsQuality.size() ; k++)   // ukladam itemy w kolejnosci ceny od najtanszej(np, 10,10,10,15,30) i tworze temp
-        {
-            double s = ItemsQuality.get(k);  // sprawdzam czy tej ceny juz nie sprawdzalem na liscie, bo nie chce 3 razy tych samych rzeczy po 10 zeta wrzucac
-            if (!tab.contains(s)) {
-                tab.add(s);
-                for (Item x : parcel.getItemList()) {  // wrzucam wszystkie rzeczy o danej cenie
-                    if (x.getPrice() == s) {
-                        temp.addItem(x);
-                    }
-                }
-            }
-        }
-
-        parcel.removeItems();             //czyszcze plecak i od nowa wstawiam przedmioty pukladane,
-
-
-        for(Item h : temp.getItemList())
-        {
-            parcel.addItem(h);
-        }
-
-
-		return parcel;
+		return newParcel;
     }
 
 
@@ -85,8 +56,8 @@ public class ParcelHeuristicsNew implements ParcelHeuristics {
 
 			Parcel newParcel = new Parcel(); // paczki kt�re trafi� do listy paczek do zwrotu, "s�siednie"
 
-            if (parcelListLength > 3) {
-                for(int i=0; i<3; i++) { // 3 przedmioty zostawiam, reszte zmieniam
+            if (parcelListLength > 6) {
+                for(int i=0; i<6; i++) { // x przedmioty zostawiam, reszte zmieniam
                     Item itemToPut = parcel.getItemList().get(new Random().nextInt(parcelListLength));
                     if (newParcel.hasItem(itemToPut)) {
                         --i;
@@ -100,27 +71,25 @@ public class ParcelHeuristicsNew implements ParcelHeuristics {
 			for (int i=0; i<fullItemList.size(); i++) {
 				shuffleList.add(i);   // robie liste liczb,ktore potem spermutuje
 			}
-
 			Collections.shuffle(shuffleList);
-
 			for ( int x : shuffleList) {
 				Item itemToPut = fullItemList.get(x);
 				if (newParcel.hasItem(itemToPut)) continue;
 				newParcel.addItem(fullItemList.get(x));		//lece po liscie i dodaje przedmioty z listy liczb randomowo ustawionych
 			}
 
-            for (Parcel p : parcels) {          //SPRAWDZANIE CZY PACZKI SIE NIE DUBLUJA - SZLOBY JAKOS SPRYTNIEJ
+       /*     for (Parcel p : parcels) {          //SPRAWDZANIE CZY PACZKI SIE NIE DUBLUJA - SZLOBY JAKOS SPRYTNIEJ
 			    if (p.equals(newParcel)) {      //TO ZROBIC BO WYDLUZA ITERACJE OSTRO
 			        j--;
 			        continue outer;
                 }
             }
-
+        */
 			parcels.add(newParcel);
 		}
 		return parcels;   // zwracam liste
 	
 	}
-		
+
 
 }

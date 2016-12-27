@@ -9,12 +9,13 @@ import java.util.Objects;
 public class Item_Extended extends Item {
 
 
-    private double quality;
+    protected double quality;
 
 
         public Item_Extended(String name, double weight, double price ) {
             super(name, weight, price);
-            this.quality=(2*price)/weight;
+
+            this.quality=(price/weight);
         }
 
     public double getQuality() {

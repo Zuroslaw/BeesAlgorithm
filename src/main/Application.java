@@ -23,20 +23,30 @@ public class Application {
 
 		int[] beesDistribution = {70, 50, 30, 20, 15, 10, 8, 7, 6, 5, 4, 3, 2};
 		System.out.println("ALGO:\n");
-		BeesAlgorithmBase algo1 = new BeesAlgorithmImpl(new Parcel_Extended(), fullItemList, 10000, beesDistribution, 8, new ParcelHeuristicsNew());
-		BeesAlgorithmBase algo2 = new BeesAlgorithmRandomDump(new Parcel_Extended(), fullItemList, 10000, beesDistribution, 8, 3, new ParcelHeuristicsNew());
+		BeesAlgorithmBase algo1 = new BeesAlgorithmImpl(new Parcel_Extended(), fullItemList, 500, beesDistribution, 5, new ParcelHeuristicsNew());
+		BeesAlgorithmBase algo2 = new BeesAlgorithmRandomDump(new Parcel_Extended(), fullItemList, 500, beesDistribution, 5, 3, new ParcelHeuristicsNew());
         BeesAlgorithmBase algo3 = new BeesAlgorithmImpl(new Parcel_Extended(), fullItemList, 500, beesDistribution, 5, new ParcelHeuristicsRandomReplacement());
         BeesAlgorithmBase algo4 = new BeesAlgorithmRandomDump(new Parcel_Extended(), fullItemList, 500, beesDistribution, 5, 3, new ParcelHeuristicsRandomReplacement());
 
         Timer.tic("Impl");
-        Parcel p1 = algo3.run();
+        Parcel p1 = algo1.run();
         Timer.toc();
 
         Timer.tic("RandDump");
-        Parcel p2 = algo4.run();
+        Parcel p2 = algo2.run();
+        Timer.toc();
+
+        Timer.tic("Impl");
+        Parcel p3 = algo3.run();
+        Timer.toc();
+
+        Timer.tic("RandDump");
+        Parcel p4 = algo4.run();
         Timer.toc();
         System.out.println(p1);
         System.out.println(p2);
+        System.out.println(p3);
+        System.out.println(p4);
 
         //		ArrayList<Double> qualityListAlgo1 = new ArrayList<>();
 //		ArrayList<Double> qualityListAlgo2 = new ArrayList<>();
