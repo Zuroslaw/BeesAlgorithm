@@ -32,6 +32,11 @@ public class Application {
         Parcel p1 = algo1.run();
         Timer.toc();
 
+        /*
+         *  KNAPSACK PROBLEM LIBRARY - GOOGLE
+         *  OR LIBRARY
+         */
+
         Timer.tic("RandDump");
         Parcel p2 = algo2.run();
         Timer.toc();

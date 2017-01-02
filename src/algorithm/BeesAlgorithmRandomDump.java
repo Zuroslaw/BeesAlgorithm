@@ -1,6 +1,8 @@
 package algorithm;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 
 import Exceptions.MoreDumpedSourcesThanScoutsException;
@@ -44,7 +46,6 @@ public class BeesAlgorithmRandomDump extends BeesAlgorithmBase {
             currentSources.sort(Parcel::reversedCompareTo);
             currentSources.forEach(parcel -> System.out.print("" + parcel.getCurrentQuality() + " "));     //TO TEZ
             System.out.println();  //I TO TEZZZZZZ
-
         }
 
         currentSources.sort(Parcel::reversedCompareTo);
