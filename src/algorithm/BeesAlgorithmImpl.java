@@ -1,6 +1,7 @@
 package algorithm;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import Exceptions.MoreDumpedSourcesThanScoutsException;
 import model.Parcel;
@@ -17,6 +18,9 @@ public class BeesAlgorithmImpl extends BeesAlgorithmBase {
     public Parcel run(){
 
          if (sourcesToDump > beesDistribution.length) throw new MoreDumpedSourcesThanScoutsException();
+
+         bestOfRun.clear();
+         meanOfRun.clear();
 
          int currentIter;
          int numOfScouts = beesDistribution.length;
@@ -41,6 +45,11 @@ public class BeesAlgorithmImpl extends BeesAlgorithmBase {
              currentSources.forEach(parcel -> System.out.print("" + parcel.getCurrentQuality() + " "));     //TO TEZ
              System.out.println();  //I TO TEZZZZZZ
 
+             bestOfRun.add(currentSources.get(0).getCurrentQuality());
+             meanOfRun.add(currentSources.stream()
+                                    .mapToDouble(Parcel::getCurrentQuality)
+                                    .average()
+                                    .getAsDouble());
          }
 
          currentSources.sort(Parcel::reversedCompareTo);

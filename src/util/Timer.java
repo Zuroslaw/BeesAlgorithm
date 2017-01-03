@@ -33,19 +33,20 @@ public class Timer {
         displayTic(timerValue);
     }
 
-    public static void toc() {
+    public static double toc() {
         TimerData timerValue = TimerStack.pop();
-        displayToc(timerValue);
+        return displayToc(timerValue);
     }
 
     private static void displayTic(TimerData timerValue) {
         System.out.println(""+ (timerValue.ticName == null ? "":(timerValue.ticName + "-> ")) +  "### Timer: Beginning time measurement with id: " + timerValue.id);
     }
 
-    private static void displayToc(TimerData timerValue) {
-        double currentTimeMilis = System.currentTimeMillis();
-        double ticTimeMilis = timerValue.time;
-        double seconds = (currentTimeMilis - ticTimeMilis)/1000;
+    private static double displayToc(TimerData timerValue) {
+        double currentTimeMillis = System.currentTimeMillis();
+        double ticTimeMillis = timerValue.time;
+        double seconds = (currentTimeMillis - ticTimeMillis)/1000;
         System.out.println(""+ (timerValue.ticName == null ? "":(timerValue.ticName + "-> ")) +  "### Timer: Time of measurement with id: " + timerValue.id + " -> " + seconds);
+        return seconds;
     }
 }

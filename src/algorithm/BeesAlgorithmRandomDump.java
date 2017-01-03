@@ -24,6 +24,9 @@ public class BeesAlgorithmRandomDump extends BeesAlgorithmBase {
 
         if (sourcesToDump > beesDistribution.length) throw new MoreDumpedSourcesThanScoutsException();
 
+        bestOfRun.clear();
+        meanOfRun.clear();
+
         int currentIter;
         int numOfScouts = beesDistribution.length;
         ArrayList<Parcel> currentSources = ph.generateMultipleRandomParcels(fullItemList, numOfScouts);  //paczki beda rozne
@@ -46,6 +49,12 @@ public class BeesAlgorithmRandomDump extends BeesAlgorithmBase {
             currentSources.sort(Parcel::reversedCompareTo);
             currentSources.forEach(parcel -> System.out.print("" + parcel.getCurrentQuality() + " "));     //TO TEZ
             System.out.println();  //I TO TEZZZZZZ
+
+            bestOfRun.add(currentSources.get(0).getCurrentQuality());
+            meanOfRun.add(currentSources.stream()
+                    .mapToDouble(Parcel::getCurrentQuality)
+                    .average()
+                    .getAsDouble());
         }
 
         currentSources.sort(Parcel::reversedCompareTo);

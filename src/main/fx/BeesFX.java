@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -46,6 +47,9 @@ public class BeesFX extends Application {
         primaryStage.show();
         primaryStage.setMinHeight(primaryStage.getHeight());
         primaryStage.setMinWidth(primaryStage.getWidth());
+
+        RootLayoutController c = loader.getController();
+        c.setMainApp(this);
     }
 
     private void initMainView() throws IOException {
@@ -53,8 +57,48 @@ public class BeesFX extends Application {
         loader.setLocation(BeesFX.class.getResource("BeesFX.fxml"));
 
         this.rootLayout.setCenter((AnchorPane) loader.load());
+    }
 
-        //BeesFXController controller = loader.getController();
-        //controller.setMainApp(this);
+    public void showInputDataSettings() {
+
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(BeesFX.class.getResource("InputDataSettings.fxml"));
+            AnchorPane pane = (AnchorPane) loader.load();
+
+            Stage inputDataSettingsDialog = new Stage();
+            inputDataSettingsDialog.setTitle("Ustawienia danych wejściowych");
+            inputDataSettingsDialog.initModality(Modality.WINDOW_MODAL);
+            inputDataSettingsDialog.initOwner(primaryStage);
+            Scene inputDataSettingsDialogScene = new Scene(pane);
+            inputDataSettingsDialog.setScene(inputDataSettingsDialogScene);
+
+            InputDataSettingsController c = loader.getController();
+            c.setStage(inputDataSettingsDialog);
+            inputDataSettingsDialog.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showLineChartSettings() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(BeesFX.class.getResource("LineChartSettings.fxml"));
+            AnchorPane pane = (AnchorPane) loader.load();
+
+            Stage LineChartSettingsDialog = new Stage();
+            LineChartSettingsDialog.setTitle("Ustawienia wykresu");
+            LineChartSettingsDialog.initModality(Modality.WINDOW_MODAL);
+            LineChartSettingsDialog.initOwner(primaryStage);
+            Scene LineChartSettingsDialogScene = new Scene(pane);
+            LineChartSettingsDialog.setScene(LineChartSettingsDialogScene);
+
+            LineChartSettingsController c = loader.getController();
+            c.setStage(LineChartSettingsDialog);
+            LineChartSettingsDialog.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

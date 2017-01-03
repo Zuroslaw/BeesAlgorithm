@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class DAO {
 	
 	private static DAO instance;
-	private static String filename = "input.txt";
+	private static String filename = "input3.txt";
 
 	/**
 	 * Returns a DAO singleton

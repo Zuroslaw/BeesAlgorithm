@@ -7,6 +7,9 @@ import model.Item;
 
 public abstract class BeesAlgorithmBase {
 
+	public ArrayList<Double> bestOfRun = new ArrayList<>();
+	public ArrayList<Double> meanOfRun = new ArrayList<>();
+
 	protected ParcelHeuristics ph;
 	protected Parcel originalParcel;
 	protected ArrayList<Item> fullItemList;
