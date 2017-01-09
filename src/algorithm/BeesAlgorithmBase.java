@@ -9,6 +9,7 @@ public abstract class BeesAlgorithmBase {
 
 	public ArrayList<Double> bestOfRun = new ArrayList<>();
 	public ArrayList<Double> meanOfRun = new ArrayList<>();
+	public int iterWithBest = 0;
 
 	protected ParcelHeuristics ph;
 	protected Parcel originalParcel;

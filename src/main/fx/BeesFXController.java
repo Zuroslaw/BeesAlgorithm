@@ -44,6 +44,8 @@ public class BeesFXController {
     @FXML
     public Label labelAverage;
     @FXML
+    public Label labelBestIter;
+    @FXML
     public TextField textNumOfRuns;
 
     static boolean showMean = true;
@@ -109,8 +111,21 @@ public class BeesFXController {
         ((NumberAxis) algorithmChart.getYAxis()).setLowerBound(minValue);
         ((NumberAxis) algorithmChart.getYAxis()).setUpperBound(maxValue);
         labelResult.setText(Double.toString(Collections.max(resultList)));
-        labelAverage.setText(Double.toString(resultList.stream().mapToDouble(Double::doubleValue).average().getAsDouble()));
-        labelTime.setText(Double.toString(timeList.stream().mapToDouble(Double::doubleValue).average().getAsDouble()) + " s");
+        labelAverage.setText(Double.toString(resultList.stream()
+                .mapToDouble(Double::doubleValue)
+                .average()
+                .getAsDouble()));
+        labelTime.setText(Double.toString(timeList.stream()
+                .mapToDouble(Double::doubleValue)
+                .average()
+                .getAsDouble()) + " s");
+
+        for (int i = 0; i < algo.bestOfRun.size(); i++) {
+            if (algo.bestOfRun.get(i).equals(Collections.max(algo.bestOfRun))) {
+                labelBestIter.setText(Integer.toString(i));
+                break;
+            }
+        }
     }
 
     @FXML
